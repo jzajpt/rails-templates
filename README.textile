@@ -1,0 +1,1 @@
+h1. jzajpt's rails template(s)
