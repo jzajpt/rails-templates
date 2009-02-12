@@ -51,27 +51,6 @@ inside('config/locales') do
   run "curl -s -L http://gist.github.com/60342.txt > cs_action_view.yml"
 end
 
-if yes?('Use restful-authentication plugin? (y/N)')
-  ##
-  # Install plugin
-  plugin 'restful-authentication', :git => 'git://github.com/technoweenie/restful-authentication.git', :submodule => true
-
-  ##
-  # Convert authenticated views to HAML. Unfortunately html2haml generator is kinda broken
-  # and generated views needs to be fixed, so don't forget to fix them.
-  inside('app/views/') do
-    run "html2haml sessions/new.html.erb sessions/new.html.haml"
-    run "rm sessions/new.html.erb"
-    run "html2haml users/new.html.erb users/new.html.haml"
-    run "rm users/new.html.erb"
-    run "html2haml users/_user_bar.html.erb users/_user_bar.html.haml"
-    run "rm users/_user_bar.html.erb"
-  end
-  
-  ##
-  # Generate authenticated model and controller
-  generate "authenticated", "user session"
-end
 
 ##
 # Fetch LabeledFormBuilder
@@ -109,14 +88,9 @@ file 'app/views/layouts/application.html.haml',
 ##
 # Create empty application js file
 file 'public/javascripts/application.js', %Q{// Place your javascript code here}
-
 file 'public/stylesheets/application.css', %Q{/* Place your CSS code here */}
 
-
-inside('test') do
-  run 'mkdir factories'
-end
-
+run 'mkdir test/factories'
 
 rake 'db:migrate'
 
