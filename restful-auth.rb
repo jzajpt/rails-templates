@@ -1,5 +1,4 @@
-# load_template "http://github.com/jzajpt/rails-templates/raw/master/base.rb"
-load_template "/users/jzajpt/code/rails_templates/base.rb"
+load_template "http://github.com/jzajpt/rails-templates/raw/master/base.rb"
 
 ##
 # Install plugin
