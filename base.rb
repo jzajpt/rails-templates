@@ -1,6 +1,9 @@
 #
 # Delete unnecessary files
 run "rm README"
+run "rm public/robots.txt"
+run "rm public/favicon.ico"
+run "rm public/images/rails.png"
 run "rm public/index.html"
 run "rm -f public/javascripts/*"
 
@@ -12,13 +15,13 @@ run "curl -s -L http://jqueryjs.googlecode.com/files/jquery-1.3.1.min.js > publi
 # Create gitignore files
 run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
 run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
-file '.gitignore', <<-END
-.DS_Store
+file '.gitignore', 
+%q{.DS_Store
 log/*.log
 tmp/**/*
 config/database.yml
 db/*.sqlite3
-END
+}
 
 ##
 # Initialize git repository
@@ -31,12 +34,13 @@ plugin 'i18n_label',             :git => 'git://github.com/iain/i18n_label.git',
 plugin 'blueberry_scaffold',     :git => 'git://github.com/jzajpt/blueberry_scaffold.git', :submodule => true
 
 ##
-# Setup gems requirements
+# Setup gem requirements
+gem 'cucumber'
 gem "thoughtbot-shoulda",      :lib => "shoulda", :source => "http://gems.github.com"
 gem 'thoughtbot-factory_girl', :lib => 'factory_girl',  :source => 'http://gems.github.com'
+gem 'mocha'
 gem 'rubyist-aasm',            :lib => 'aasm', :source => 'http://gems.github.com'
 gem 'mislav-will_paginate',    :lib => 'will_paginate', :source => 'http://gems.github.com'
-gem 'mocha'
 gem 'haml'
 
 ##
@@ -93,6 +97,10 @@ file 'public/stylesheets/application.css', %Q{/* Place your CSS code here */}
 run 'mkdir test/factories'
 
 rake 'db:migrate'
+
+#
+# Generate Cucumber files
+generate 'cucumber'
 
 
 ##
