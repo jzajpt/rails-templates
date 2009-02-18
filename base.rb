@@ -35,17 +35,24 @@ plugin 'blueberry_scaffold',     :git => 'git://github.com/jzajpt/blueberry_scaf
 
 ##
 # Setup gem requirements
-gem 'cucumber'
-gem "thoughtbot-shoulda",      :lib => "shoulda", :source => "http://gems.github.com"
-gem 'thoughtbot-factory_girl', :lib => 'factory_girl',  :source => 'http://gems.github.com'
+gem 'cucumber', :version => '>= 0.1.16'
+gem "thoughtbot-shoulda",
+  :lib => "shoulda",
+  :source => "http://gems.github.com",
+  :version => '>= 2.9.1'
+gem 'thoughtbot-factory_girl',
+  :lib => 'factory_girl',
+  :source => 'http://gems.github.com',
+  :version => '>= 1.2.0'
 gem 'mocha'
-gem 'rubyist-aasm',            :lib => 'aasm', :source => 'http://gems.github.com'
-gem 'mislav-will_paginate',    :lib => 'will_paginate', :source => 'http://gems.github.com'
+gem 'rubyist-aasm',
+  :lib => 'aasm',
+  :source => 'http://gems.github.com'
+gem 'mislav-will_paginate',
+  :lib => 'will_paginate',
+  :source => 'http://gems.github.com',
+  :version => '>= 2.3.7'
 gem 'haml'
-
-##
-# Create locale initializer
-initializer 'locale.rb', "I18n.default_locale = 'cs'"
 
 ##
 # Fetch Czech locales
