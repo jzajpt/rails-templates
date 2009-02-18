@@ -52,7 +52,6 @@ gem 'mislav-will_paginate',
   :lib => 'will_paginate',
   :source => 'http://gems.github.com',
   :version => '>= 2.3.7'
-gem 'haml'
 
 ##
 # Fetch Czech locales
@@ -83,17 +82,26 @@ module ApplicationHelper
 end}
 
 ##
-# Create application HAML layout
-file 'app/views/layouts/application.html.haml', 
-%Q{!!! Strict
-%html{ html_attrs("cz_CZ") }
-  %head
-    %meta{ :content => 'text/html; charset=utf-8', 'http-equiv' => 'content-type' }/
-    %title Application Template
-    = javascript_include_tag 'jquery', 'application'
-    = stylesheet_link_tag 'application', :media => 'all'
-  %body
-    = yield
+# Create application layout
+file 'app/views/layouts/application.html.erb', 
+%Q{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= h(yield(:title) || "Untitled") %></title>
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
+    <%= javascript_include_tag 'jquery', 'application' %>
+  </head>
+  <body>
+    <div id="container">
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <%- end -%>
+      <%= yield %>
+    </div>
+  </body>
+</html>
 }
 
 ##
