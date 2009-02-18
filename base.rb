@@ -96,7 +96,7 @@ file 'app/views/layouts/application.html.erb',
   <body>
     <div id="container">
       <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%= content_tag :div, msg, :id => "flash_\#{name}" %>
       <%- end -%>
       <%= yield %>
     </div>
