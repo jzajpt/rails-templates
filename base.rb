@@ -31,7 +31,7 @@ git :init
 ##
 # Install plugins
 plugin 'i18n_label',
-  :git => 'git://github.com/iain/i18n_label.git'
+  :git => 'git://github.com/iain/i18n_label.git',
   :submodule => true
 plugin 'blueberry_scaffold',
   :git => 'git://github.com/jzajpt/blueberry_scaffold.git',
