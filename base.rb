@@ -9,7 +9,7 @@ run "rm -f public/javascripts/*"
 
 ##
 # Download JQuery
-run "curl -s -L http://jqueryjs.googlecode.com/files/jquery-1.3.1.min.js > public/javascripts/jquery.js"
+run "curl -s -L http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js > public/javascripts/jquery.js"
 
 ##
 # Create gitignore files
@@ -30,16 +30,20 @@ git :init
 
 ##
 # Install plugins
-plugin 'i18n_label',             :git => 'git://github.com/iain/i18n_label.git', :submodule => true
-plugin 'blueberry_scaffold',     :git => 'git://github.com/jzajpt/blueberry_scaffold.git', :submodule => true
+plugin 'i18n_label',
+  :git => 'git://github.com/iain/i18n_label.git'
+  :submodule => true
+plugin 'blueberry_scaffold',
+  :git => 'git://github.com/jzajpt/blueberry_scaffold.git',
+  :submodule => true
 
 ##
 # Setup gem requirements
-gem 'cucumber', :version => '>= 0.1.16'
+gem 'cucumber', :version => '>= 0.2.2'
 gem "thoughtbot-shoulda",
   :lib => "shoulda",
   :source => "http://gems.github.com",
-  :version => '>= 2.9.1'
+  :version => '>= 2.10.1'
 gem 'thoughtbot-factory_girl',
   :lib => 'factory_girl',
   :source => 'http://gems.github.com',
@@ -51,7 +55,7 @@ gem 'rubyist-aasm',
 gem 'mislav-will_paginate',
   :lib => 'will_paginate',
   :source => 'http://gems.github.com',
-  :version => '>= 2.3.7'
+  :version => '>= 2.3.8'
 
 ##
 # Fetch Czech locales
