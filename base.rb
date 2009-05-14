@@ -31,11 +31,9 @@ git :init
 ##
 # Install plugins
 plugin 'i18n_label',
-  :git => 'git://github.com/iain/i18n_label.git',
-  :submodule => true
-plugin 'blueberry_scaffold',
-  :git => 'git://github.com/jzajpt/blueberry_scaffold.git',
-  :submodule => true
+  :git => 'git://github.com/iain/i18n_label.git'#, :submodule => true
+# plugin 'blueberry_scaffold',
+#   :git => 'git://github.com/jzajpt/blueberry_scaffold.git'#, :submodule => true
 
 ##
 # Setup gem requirements
@@ -99,18 +97,22 @@ file 'app/views/layouts/application.html.erb',
   </head>
   <body>
     <div id="container">
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_\#{name}" %>
-      <%- end -%>
+      <%= render :partial => 'layouts/flashes' %>
       <%= yield %>
     </div>
   </body>
 </html>
 }
 
+file 'app/views/layouts/_flashes.html.erb', 
+%Q{<%- flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, :id => "flash_\#{name}" %>
+<%- end -%>
+}
+
 ##
 # Create empty application js file
-file 'public/javascripts/application.js', %Q{// Place your javascript code here}
+file 'public/javascripts/application.js', %Q{$(document).ready(function() { /* jquery code here */ });}
 file 'public/stylesheets/application.css', %Q{/* Place your CSS code here */}
 
 run 'mkdir test/factories'
