@@ -33,7 +33,7 @@ git :init
 plugin 'i18n_label',
   :git => 'git://github.com/iain/i18n_label.git'#, :submodule => true
 # plugin 'blueberry_scaffold',
-#   :git => 'git://github.com/jzajpt/blueberry_scaffold.git'#, :submodule => true
+  # :git => 'git://github.com/jzajpt/blueberry_scaffold.git'#, :submodule => true
 
 ##
 # Setup gem requirements
@@ -54,6 +54,15 @@ gem 'mislav-will_paginate',
   :lib => 'will_paginate',
   :source => 'http://gems.github.com',
   :version => '>= 2.3.8'
+
+##
+# Add own initializers
+file 'config/initializers/noisy_attr_accessible.rb', 
+%q{ActiveRecord::Base.class_eval do
+  def log_protected_attribute_removal(*attributes)
+    raise "Can't mass-assign these protected attributes: #{attributes.join(', ')}"
+  end
+end}
 
 ##
 # Fetch Czech locales
