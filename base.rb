@@ -27,33 +27,31 @@ db/*.sqlite3
 # Initialize git repository
 git :init
 
-
 ##
 # Install plugins
-plugin 'i18n_label',
-  :git => 'git://github.com/iain/i18n_label.git'#, :submodule => true
-# plugin 'blueberry_scaffold',
-  # :git => 'git://github.com/jzajpt/blueberry_scaffold.git'#, :submodule => true
+plugin 'i18n_label',               :git => 'git://github.com/iain/i18n_label.git'
+plugin 'inherited_resources',      :git => 'git://github.com/josevalim/inherited_resources.git'
+plugin 'formtastic',               :git => 'git://github.com/justinfrench/formtastic.git'
+plugin 'blueberry_scaffold',       :git => 'git://github.com/jzajpt/blueberry_scaffold.git'
+plugin 'state_machine',            :git => 'git://github.com/pluginaweek/state_machine.git'
+plugin 'localized_country_select', :git => 'git://github.com/karmi/localized_country_select.git'
 
 ##
 # Setup gem requirements
-gem 'cucumber', :version => '>= 0.2.2'
+gem 'cucumber', :version => '>= 0.3.0'
+gem 'mocha', :version => '>= 0.9.7'
 gem "thoughtbot-shoulda",
   :lib => "shoulda",
   :source => "http://gems.github.com",
-  :version => '>= 2.10.1'
+  :version => '>= 2.10.2'
 gem 'thoughtbot-factory_girl',
   :lib => 'factory_girl',
   :source => 'http://gems.github.com',
-  :version => '>= 1.2.0'
-gem 'mocha'
-gem 'rubyist-aasm',
-  :lib => 'aasm',
-  :source => 'http://gems.github.com'
+  :version => '>= 1.2.2'
 gem 'mislav-will_paginate',
   :lib => 'will_paginate',
   :source => 'http://gems.github.com',
-  :version => '>= 2.3.8'
+  :version => '>= 2.3.11'
 
 ##
 # Add own initializers
@@ -73,24 +71,24 @@ inside('config/locales') do
 end
 
 
-##
+### Disabled LabeledFormBuilder in favor of Formtastic.
 # Fetch LabeledFormBuilder
-inside('app') do
-  run "mkdir form_builders"
-end
-run 'curl -s -L http://gist.github.com/60353.txt > app/form_builders/labeled_form_builder.rb'
-
-gsub_file 'config/environment.rb',
-  '# config.load_paths += %W( #{RAILS_ROOT}/extras )', 'config.load_paths += %W( #{RAILS_ROOT}/app/form_builders )'
-
-file 'app/helpers/application_helper.rb', 
-%Q{# Methods added to this helper will be available to all templates in the application.
-module ApplicationHelper
-  def labeled_form_for(*args, &block)
-    options = args.extract_options!.merge(:builder => LabeledFormBuilder)
-    form_for(*(args + [options]), &block)
-  end
-end}
+# inside('app') do
+#   run "mkdir form_builders"
+# end
+# run 'curl -s -L http://gist.github.com/60353.txt > app/form_builders/labeled_form_builder.rb'
+# 
+# gsub_file 'config/environment.rb',
+#   '# config.load_paths += %W( #{RAILS_ROOT}/extras )', 'config.load_paths += %W( #{RAILS_ROOT}/app/form_builders )'
+# 
+# file 'app/helpers/application_helper.rb', 
+# %Q{# Methods added to this helper will be available to all templates in the application.
+# module ApplicationHelper
+#   def labeled_form_for(*args, &block)
+#     options = args.extract_options!.merge(:builder => LabeledFormBuilder)
+#     form_for(*(args + [options]), &block)
+#   end
+# end}
 
 ##
 # Create application layout
