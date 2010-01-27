@@ -52,14 +52,7 @@ file 'config/initializers/action_mailer_config.rb',
 }
 ]
 
-file 'config/initializers/noisy_attr_accessible.rb',
-%q{ActiveRecord::Base.class_eval do
-  def log_protected_attribute_removal(*attributes)
-    raise "Can't mass-assign these protected attributes: #{attributes.join(', ')}"
-  end
-end}
-
-file 'config/initializes/mongo_mapper.rb',
+file 'config/initializers/mongo_mapper.rb',
 %q{db_config = YAML::load(File.read(File.join(Rails.root, "/config/mongodb.yml")))
 mongo     = db_config[Rails.env]
 
