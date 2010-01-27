@@ -15,7 +15,7 @@ run "curl -s -L http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js > publi
 # Create gitignore files
 run "touch tmp/.gitignore log/.gitignore vendor/.gitignore"
 run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
-file '.gitignore', 
+file '.gitignore',
 %q{.DS_Store
 log/*.log
 tmp/**/*
@@ -55,12 +55,21 @@ gem 'mislav-will_paginate',
 
 ##
 # Add own initializers
-file 'config/initializers/noisy_attr_accessible.rb', 
+file 'config/initializers/noisy_attr_accessible.rb',
 %q{ActiveRecord::Base.class_eval do
   def log_protected_attribute_removal(*attributes)
     raise "Can't mass-assign these protected attributes: #{attributes.join(', ')}"
   end
 end}
+
+file 'config/initializers/action_mailer_config.rb',
+%q[ActionMailer::Base.smtp_settings = {
+  :address => "smtp.thoughtbot.com",
+  :port    => 25,
+  :domain  => "thoughtbot.com"
+}
+]
+
 
 ##
 # Fetch Czech locales
@@ -77,11 +86,11 @@ end
 #   run "mkdir form_builders"
 # end
 # run 'curl -s -L http://gist.github.com/60353.txt > app/form_builders/labeled_form_builder.rb'
-# 
+#
 # gsub_file 'config/environment.rb',
 #   '# config.load_paths += %W( #{RAILS_ROOT}/extras )', 'config.load_paths += %W( #{RAILS_ROOT}/app/form_builders )'
-# 
-# file 'app/helpers/application_helper.rb', 
+#
+# file 'app/helpers/application_helper.rb',
 # %Q{# Methods added to this helper will be available to all templates in the application.
 # module ApplicationHelper
 #   def labeled_form_for(*args, &block)
@@ -92,7 +101,7 @@ end
 
 ##
 # Create application layout
-file 'app/views/layouts/application.html.erb', 
+file 'app/views/layouts/application.html.erb',
 %Q{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -111,7 +120,7 @@ file 'app/views/layouts/application.html.erb',
 </html>
 }
 
-file 'app/views/layouts/_flashes.html.erb', 
+file 'app/views/layouts/_flashes.html.erb',
 %Q{<%- flash.each do |name, msg| -%>
   <%= content_tag :div, msg, :id => "flash_\#{name}" %>
 <%- end -%>
