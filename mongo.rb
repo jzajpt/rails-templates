@@ -81,26 +81,26 @@ base: &base
 
 development:
   <<: *base
-  database: boards-development
+  database: myapp-development
 
 test:
   <<: *base
-  database: board-test
+  database: myapp-test
 
 production:
   <<: *base
-  database: boards-production]
+  database: myapp-production]
 
 # Locales
 
 inside('config/locales') do
-  run "curl -s -L http://gist.github.com/60344.txt > cs_active_record.yml"
   run "curl -s -L http://gist.github.com/60343.txt > cs_active_support.yml"
   run "curl -s -L http://gist.github.com/60342.txt > cs_action_view.yml"
-
 end
 
-file 'config/locales/cs.yml', 'cs:'
+file 'config/locales/cs.yml',
+%q[cs:'
+  ]
 
 
 # Layout
@@ -122,7 +122,6 @@ file 'app/views/layouts/application.html.haml',
     %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'jquery', 'application'
-    = javascript_auth_token_tag
     = yield :head
 
   %body
